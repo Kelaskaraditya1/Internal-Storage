@@ -33,15 +33,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{dataBinding=true
+    }
 }
-
 dependencies {
-
+    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+    implementation("androidx.media3:media3-exoplayer-dash:1.3.1")
+    implementation("androidx.media3:media3-ui:1.3.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.media3.exoplayer)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
