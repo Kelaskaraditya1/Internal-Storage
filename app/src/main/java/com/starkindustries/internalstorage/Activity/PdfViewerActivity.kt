@@ -20,28 +20,28 @@ class PdfViewerActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_pdf_viewer)
         binding=DataBindingUtil.setContentView(this, R.layout.activity_pdf_viewer)
-        val launchpdf = registerForActivityResult(ActivityResultContracts.GetContent())
-        {
-            uri->
-                uri.let {
-                    binding.pdfView.fromUri(it)
-                        .spacing(12)
-                        .defaultPage(0)
-                        .enableAnnotationRendering(false)
-                        .enableDoubletap(true)
-                        .load()
-                    binding.pdfView.fitToWidth()
-                    binding.pdfView.useBestQuality(true)
-                    Toast.makeText(applicationContext, "filename:"+getFileName(it!!), Toast.LENGTH_SHORT).show()
-                }
-        }
+
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.setType("*/*") // Set the MIME type to audio files
         intent.addCategory(Intent.CATEGORY_OPENABLE)
+        val launchpdf = registerForActivityResult(ActivityResultContracts.GetContent())
+        {
+                uri->
+            uri.let {
+                binding.pdfView.fromUri(it)
+                    .spacing(12)
+                    .defaultPage(0)
+                    .enableAnnotationRendering(false)
+                    .enableDoubletap(true)
+                    .load()
+                binding.pdfView.fitToWidth()
+                binding.pdfView.useBestQuality(true)
+                Toast.makeText(applicationContext, "filename:"+getFileName(it!!), Toast.LENGTH_SHORT).show()
+            }
+        }
         binding.openPdfButton.setOnClickListener()
         {
-//            launchpdf.launch("application/pdf")
-            startActivityForResult(Intent.createChooser(intent, "Select Music"),102)
+            launchpdf.launch("application/pdf")
 
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -70,5 +70,16 @@ class PdfViewerActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== RESULT_OK)
+        {
+            if(requestCode==101)
+            {
+
+            }
+        }
     }
 }
